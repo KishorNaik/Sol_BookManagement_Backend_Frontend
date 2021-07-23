@@ -1,0 +1,11 @@
+###
+POST http://localhost:3001/api/book/createbook
+Content-Type: application/json
+
+{
+    "BookName":"Test",
+    "Auther":"Test",
+    "Quantity":10,
+    "Price":350.00,
+    "PublishDate":"07/30/2021"
+}

@@ -1,6 +1,7 @@
 import Bottle from "bottlejs"
 import { IMediatRRegister } from "../../../../Frameworks/MediatR/Core/MediatR";
 import { CreateBookCommand, CreateBookCommandHandler } from "../../../Applications/Features/Commands/CreateBookCommandHandler";
+import { RemoveBookCommandHandler } from "../../../Applications/Features/Commands/RemoveBookCommandHandler";
 import { UpdateBookCommand, UpdateBookCommandHandler } from "../../../Applications/Features/Commands/UpdatebookCommandHandler";
 import { CreateBookValidation, CreateBookValidationHandler } from "../../../Business/Validations/CreateBookValidationHandler";
 import { UpdateBookValidation, UpdateBookValidationHandler } from "../../../Business/Validations/UpdateBookValidationHandler";
@@ -20,6 +21,7 @@ export const AddBookServiceExtension=(bottleContainer:Bottle):void=>{
     let CommandHandler=():void=>{
         bottleContainer.service("createBookCommandHandler",CreateBookCommandHandler,"mediatR");
         bottleContainer.service("updateBookCommandHandler",UpdateBookCommandHandler,"mediatR");
+        bottleContainer.service("removeBookCommandHandler",RemoveBookCommandHandler,"mediatR");
     }
     let ValidationHandler=():void=>{
         bottleContainer.service("createBookValidationHandler",CreateBookValidationHandler);

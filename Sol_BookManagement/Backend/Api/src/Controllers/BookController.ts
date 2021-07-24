@@ -10,7 +10,7 @@ import { UpdateBookValidation } from "../Business/Validations/UpdateBookValidati
 
 export default class BookController extends BaseController{
 
-    private readonly mediatR:IMediatR=null;
+    private readonly mediatR:IMediatR;
 
     constructor(mediatR:IMediatR){
         super();
@@ -31,7 +31,7 @@ export default class BookController extends BaseController{
                             this.CreateBookAsync.bind(this)
                         );
 
-        //http://localhost:3001/api/book/createbook
+        //http://localhost:3001/api/book/updatebook
         this.router.post(
                             `${this.routePath}/updatebook`,
                             await this.mediatR.SendAsync<ValidationChain[],UpdateBookValidation>(new UpdateBookValidation()),

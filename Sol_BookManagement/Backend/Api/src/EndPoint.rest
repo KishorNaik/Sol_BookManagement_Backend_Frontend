@@ -9,3 +9,16 @@ Content-Type: application/json
     "Price":350.00,
     "PublishDate":"07/30/2021"
 }
+
+###
+POST http://localhost:3001/api/book/updatebook
+Content-Type: application/json
+
+{
+    "BookIdentity":"3f4782cf-ef05-49e5-9dfa-f7745c43e506",
+    "BookName":"Test",
+    "Auther":"Test",
+    "Quantity":10,
+    "Price":350.00,
+    "PublishDate":"07/01/2021"
+}

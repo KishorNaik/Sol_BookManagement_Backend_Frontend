@@ -1,9 +1,10 @@
 import Bottle from "bottlejs"
 import { IMediatRRegister } from "../../../../Frameworks/MediatR/Core/MediatR";
 import { CreateBookCommand, CreateBookCommandHandler } from "../../../Applications/Features/Commands/CreateBookCommandHandler";
-import { RemoveBookCommandHandler } from "../../../Applications/Features/Commands/RemoveBookCommandHandler";
+import { RemoveBookCommand, RemoveBookCommandHandler } from "../../../Applications/Features/Commands/RemoveBookCommandHandler";
 import { UpdateBookCommand, UpdateBookCommandHandler } from "../../../Applications/Features/Commands/UpdatebookCommandHandler";
 import { CreateBookValidation, CreateBookValidationHandler } from "../../../Business/Validations/CreateBookValidationHandler";
+import { RemoveBookValidation, RemoveBookValidationHandler } from "../../../Business/Validations/RemoveBookValidationHandler";
 import { UpdateBookValidation, UpdateBookValidationHandler } from "../../../Business/Validations/UpdateBookValidationHandler";
 import BookController from "../../../Controllers/BookController";
 import { CreateBookDataService, CreateBookDataServiceHandler } from "../../../Infrastructures/DataService/CreateBookDataServiceHandler"
@@ -26,6 +27,7 @@ export const AddBookServiceExtension=(bottleContainer:Bottle):void=>{
     let ValidationHandler=():void=>{
         bottleContainer.service("createBookValidationHandler",CreateBookValidationHandler);
         bottleContainer.service("updateBookValidationHandler",UpdateBookValidationHandler);
+        bottleContainer.service("removeBookValidationHandler",RemoveBookValidationHandler);
     }
     let Controller=():void=>{
         bottleContainer.service("bookController",BookController,"mediatR");
@@ -42,6 +44,12 @@ export const AddBookServiceExtension=(bottleContainer:Bottle):void=>{
         mediatR.RegisterRequest(UpdateBookDataService,bottleContainer.container.updateBookDataServiceHandler);
         mediatR.RegisterRequest(UpdateBookCommand,bottleContainer.container.updateBookCommandHandler);
         mediatR.RegisterRequest(UpdateBookValidation,bottleContainer.container.updateBookValidationHandler);
+
+        // Remove Book
+        mediatR.RegisterRequest(RemoveBookDataService,bottleContainer.container.removeBookDataServiceHandler);
+        mediatR.RegisterRequest(RemoveBookCommand,bottleContainer.container.removeBookCommandHandler);
+        mediatR.RegisterRequest(RemoveBookValidation,bottleContainer.container.removeBookValidationHandler);
+
     }
 
 

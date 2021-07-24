@@ -22,3 +22,11 @@ Content-Type: application/json
     "Price":350.00,
     "PublishDate":"07/01/2021"
 }
+
+###
+POST http://localhost:3001/api/book/removebook
+Content-Type: application/json
+
+{
+    "BookIdentity":"3f4782cf-ef05-49e5-9dfa-f7745c43e506"
+}

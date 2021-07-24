@@ -4,8 +4,10 @@ import BaseController from "../../Frameworks/BaseController/BaseController";
 import { IMediatR } from "../../Frameworks/MediatR/Core/MediatR";
 import { ValidationDelegateHandlerAsync } from "../../Frameworks/ValidationDelegates/Core/ValidationDelegateHandler";
 import { CreateBookCommand } from "../Applications/Features/Commands/CreateBookCommandHandler";
+import { RemoveBookCommand } from "../Applications/Features/Commands/RemoveBookCommandHandler";
 import { UpdateBookCommand } from "../Applications/Features/Commands/UpdatebookCommandHandler";
 import { CreateBookValidation } from "../Business/Validations/CreateBookValidationHandler";
+import { RemoveBookValidation } from "../Business/Validations/RemoveBookValidationHandler";
 import { UpdateBookValidation } from "../Business/Validations/UpdateBookValidationHandler";
 
 export default class BookController extends BaseController{
@@ -36,6 +38,13 @@ export default class BookController extends BaseController{
                             `${this.routePath}/updatebook`,
                             await this.mediatR.SendAsync<ValidationChain[],UpdateBookValidation>(new UpdateBookValidation()),
                             this.UpdateBookAsync.bind(this)
+                        );
+
+         //http://localhost:3001/api/book/removebook
+        this.router.post(
+                            `${this.routePath}/removebook`,
+                            await this.mediatR.SendAsync<ValidationChain[],RemoveBookValidation>(new RemoveBookValidation()),
+                            this.RemoveBookAsync.bind(this)
                         );
     }
 
@@ -75,6 +84,26 @@ export default class BookController extends BaseController{
                 }=request.body;
 
                 let flag=await this.mediatR.SendAsync<boolean,UpdateBookCommand>(new UpdateBookCommand(BookIdentity,BookName,Auther,Quantity,Price,PublishDate));
+
+                return flag;
+            });
+        }
+        catch(ex)
+        {
+            next(ex);
+        }
+    }
+
+    private async RemoveBookAsync(request:express.Request,response:express.Response,next:express.NextFunction): Promise<void>{
+        try
+        {
+            await ValidationDelegateHandlerAsync(request,response,async ()=>{
+
+                const { 
+                    BookIdentity
+                }=request.body;
+
+                let flag=await this.mediatR.SendAsync<boolean,RemoveBookCommand>(new RemoveBookCommand(BookIdentity));
 
                 return flag;
             });

@@ -11,11 +11,11 @@ export default abstract class BookDataServiceAbstract{
             try
             {
                 const sqlConfig:mssql.config={
-                    server:(process.env.NODE_ENV==="development") ? configuration.AppSettingConfig.Development.DatabaseConnection.Server : configuration.AppSettingConfig.Production.DatabaseConnection.Server,
-                    driver:(process.env.NODE_ENV==="development") ? configuration.AppSettingConfig.Development.DatabaseConnection.Driver : configuration.AppSettingConfig.Production.DatabaseConnection.Driver,
-                    database:(process.env.NODE_ENV==="development") ? configuration.AppSettingConfig.Development.DatabaseConnection.Database : configuration.AppSettingConfig.Production.DatabaseConnection.Database,
+                    server:(process.env.NODE_ENV==="development") ? configuration?.AppSettingConfig?.Development?.DatabaseConnection?.Server : configuration?.AppSettingConfig?.Production?.DatabaseConnection?.Server,
+                    driver:(process.env.NODE_ENV==="development") ? configuration.AppSettingConfig?.Development?.DatabaseConnection?.Driver : configuration?.AppSettingConfig?.Production?.DatabaseConnection?.Driver,
+                    database:(process.env.NODE_ENV==="development") ? configuration.AppSettingConfig?.Development?.DatabaseConnection?.Database : configuration?.AppSettingConfig?.Production?.DatabaseConnection?.Database,
                     options:{
-                        trustedConnection:(process.env.NODE_ENV==="development") ? configuration.AppSettingConfig.Development.DatabaseConnection.Options.TrustedConnection : configuration.AppSettingConfig.Production.DatabaseConnection.Options.TrustedConnection,
+                        trustedConnection:(process.env.NODE_ENV==="development") ? configuration?.AppSettingConfig?.Development?.DatabaseConnection?.Options?.TrustedConnection : configuration?.AppSettingConfig?.Production?.DatabaseConnection?.Options?.TrustedConnection,
                     }
                 }
 

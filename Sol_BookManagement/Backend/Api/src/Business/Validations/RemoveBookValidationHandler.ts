@@ -9,12 +9,10 @@ export class RemoveBookValidation implements IRequest<ValidationChain[]>{
 
 export class RemoveBookValidationHandler extends BookValidationAbstract implements IRequestHandler<RemoveBookValidation,ValidationChain[]>{
 
-    constructor(){
-        super();
-    }
-
+   
    public HandleAsync(requestPara: RemoveBookValidation): Promise<ValidationChain[]> {
         return new Promise((resolve,reject)=>{
+
             try
             {
                 let validationSummary:ValidationChain[]=new Array<ValidationChain>();
@@ -22,13 +20,14 @@ export class RemoveBookValidationHandler extends BookValidationAbstract implemen
                         this.BookIdentityValidation()
                     );
 
-                    resolve(validationSummary);
+                resolve(validationSummary);
             }
             catch(ex)
             {
-                reject(ex.message);
+                reject(ex);
                 throw ex;
             }
+
         });
     }
 

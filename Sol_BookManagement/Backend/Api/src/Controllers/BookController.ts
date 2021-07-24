@@ -4,6 +4,7 @@ import BaseController from "../../Frameworks/BaseController/BaseController";
 import { IMediatR } from "../../Frameworks/MediatR/Core/MediatR";
 import { ValidationDelegateHandlerAsync } from "../../Frameworks/ValidationDelegates/Core/ValidationDelegateHandler";
 import { CreateBookCommand } from "../Applications/Features/Commands/CreateBookCommandHandler";
+import { UpdateBookCommand } from "../Applications/Features/Commands/UpdatebookCommandHandler";
 import { CreateBookValidation } from "../Business/Validations/CreateBookValidationHandler";
 
 export default class BookController extends BaseController{
@@ -46,6 +47,31 @@ export default class BookController extends BaseController{
             });
         }
         catch(ex){
+            next(ex);
+        }
+    }
+
+    private async UpdateBookAsync(request:express.Request,response:express.Response,next:express.NextFunction): Promise<void>{
+        try
+        {
+            await ValidationDelegateHandlerAsync(request,response,async ()=>{
+
+                const { 
+                    BookIdentity,
+                    BookName,
+                    Auther,
+                    Quantity,
+                    Price,
+                    PublishDate
+                }=request.body;
+
+                let flag=await this.mediatR.SendAsync<boolean,UpdateBookCommand>(new UpdateBookCommand(BookIdentity,BookName,Auther,Quantity,Price,PublishDate));
+
+                return flag;
+            });
+        }
+        catch(ex)
+        {
             next(ex);
         }
     }

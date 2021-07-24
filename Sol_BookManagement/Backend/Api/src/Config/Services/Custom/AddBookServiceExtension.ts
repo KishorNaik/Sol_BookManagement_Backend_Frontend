@@ -6,6 +6,7 @@ import { CreateBookValidation, CreateBookValidationHandler } from "../../../Busi
 import { UpdateBookValidation, UpdateBookValidationHandler } from "../../../Business/Validations/UpdateBookValidationHandler";
 import BookController from "../../../Controllers/BookController";
 import { CreateBookDataService, CreateBookDataServiceHandler } from "../../../Infrastructures/DataService/CreateBookDataServiceHandler"
+import { RemoveBookDataService, RemoveBookDataServiceHandler } from "../../../Infrastructures/DataService/RemoveBookDataServiceHandler";
 import { UpdateBookDataService, UpdateBookDataServiceHandler } from "../../../Infrastructures/DataService/UpdateBookDataServiceHandler";
 
 export const AddBookServiceExtension=(bottleContainer:Bottle):void=>{
@@ -13,6 +14,8 @@ export const AddBookServiceExtension=(bottleContainer:Bottle):void=>{
     let DataServiceHandler=():void=>{
         bottleContainer.service("createBookDataServiceHandler",CreateBookDataServiceHandler,"sqlProvider","configurations");
         bottleContainer.service("updateBookDataServiceHandler",UpdateBookDataServiceHandler,"sqlProvider","configurations");
+        bottleContainer.service("removeBookDataServiceHandler",RemoveBookDataServiceHandler,"sqlProvider","configurations");
+        
     }
     let CommandHandler=():void=>{
         bottleContainer.service("createBookCommandHandler",CreateBookCommandHandler,"mediatR");

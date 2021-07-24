@@ -27,8 +27,8 @@ export class CreateBookDataService extends BookModel implements IRequest<boolean
 
 export class CreateBookDataServiceHandler extends BookDataServiceAbstract implements IRequestHandler<CreateBookDataService,boolean>{
     
-    private readonly sqlProvider:ISqlProvider=null;
-    private readonly configuration:IConfiguration=null;
+    private readonly sqlProvider:ISqlProvider;
+    private readonly configuration:IConfiguration;
 
     constructor(sqlProvider:ISqlProvider,configuration:IConfiguration){
         super();

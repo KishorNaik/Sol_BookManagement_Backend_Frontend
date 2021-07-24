@@ -6,6 +6,7 @@ import { ValidationDelegateHandlerAsync } from "../../Frameworks/ValidationDeleg
 import { CreateBookCommand } from "../Applications/Features/Commands/CreateBookCommandHandler";
 import { UpdateBookCommand } from "../Applications/Features/Commands/UpdatebookCommandHandler";
 import { CreateBookValidation } from "../Business/Validations/CreateBookValidationHandler";
+import { UpdateBookValidation } from "../Business/Validations/UpdateBookValidationHandler";
 
 export default class BookController extends BaseController{
 
@@ -23,10 +24,18 @@ export default class BookController extends BaseController{
     }
 
     protected async InitializeRoutes():Promise<void>{
+        //http://localhost:3001/api/book/createbook
         this.router.post(
                             `${this.routePath}/createbook`,
                             await this.mediatR.SendAsync<ValidationChain[],CreateBookValidation>(new CreateBookValidation()),
                             this.CreateBookAsync.bind(this)
+                        );
+
+        //http://localhost:3001/api/book/createbook
+        this.router.post(
+                            `${this.routePath}/updatebook`,
+                            await this.mediatR.SendAsync<ValidationChain[],UpdateBookValidation>(new UpdateBookValidation()),
+                            this.UpdateBookAsync.bind(this)
                         );
     }
 

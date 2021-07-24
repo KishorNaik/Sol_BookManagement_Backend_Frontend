@@ -41,25 +41,11 @@ export class CreateBookDataServiceHandler extends BookDataServiceAbstract implem
         
        try
        {
-           console.log(await this.SqlConnectionConfigAsync(this.configuration));
-            // let pool:mssql.ConnectionPool=await this.sqlProvider.OpenSqlConnectionAsync(await this.SqlConnectionConfigAsync(this.configuration));
-
-            // let request:mssql.Request=await this.SetParameterAsync(pool.request(),"AddBook",requestPara);
-
-            // let queryResult=await request.execute("uspSetBook");
-
-            // let flag=(queryResult.rowsAffected[0]>=1) ? true :false;
-
-            return true;
-
+           return this.CommandExecuteAsync(this.sqlProvider,this.configuration,"Create-Book","uspSetBooks",requestPara);
        }
        catch(ex)
        {
            throw ex;
-       }
-       finally
-       {
-            //await this.sqlProvider.CloseSqlConnectionAsync();
        }
     }
 

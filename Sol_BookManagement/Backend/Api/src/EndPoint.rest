@@ -3,11 +3,11 @@ POST http://localhost:3001/api/book/createbook
 Content-Type: application/json
 
 {
-    "BookName":"Test",
-    "Auther":"Test",
+    "BookName":"EAST OF EDEN",
+    "Auther":"JOHN STEINBECK",
     "Quantity":10,
     "Price":350.00,
-    "PublishDate":"07/30/2021"
+    "PublishDate":"01/01/1952"
 }
 
 ###
@@ -15,12 +15,12 @@ POST http://localhost:3001/api/book/updatebook
 Content-Type: application/json
 
 {
-    "BookIdentity":"3f4782cf-ef05-49e5-9dfa-f7745c43e506",
-    "BookName":"Test",
-    "Auther":"Test",
-    "Quantity":10,
-    "Price":350.00,
-    "PublishDate":"07/01/2021"
+    "BookIdentity":"29334678-d06d-467d-b0f7-68de908b0f85",
+    "BookName":"THE SUN ALSO RISES",
+    "Auther":"ERNEST HEMINGWAY",
+    "Quantity":50,
+    "Price":500.00,
+    "PublishDate":"07/01/1926"
 }
 
 ###
@@ -28,5 +28,5 @@ POST http://localhost:3001/api/book/removebook
 Content-Type: application/json
 
 {
-    "BookIdentity":"3f4782cf-ef05-49e5-9dfa-f7745c43e506"
+    "BookIdentity":"0acb3ebc-38f0-49fd-b14a-972f4225e9fd"
 }

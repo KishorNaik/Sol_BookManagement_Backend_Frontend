@@ -19,6 +19,7 @@ export const AddBookServiceExtension=(bottleContainer:Bottle):void=>{
         bottleContainer.service("removeBookDataServiceHandler",RemoveBookDataServiceHandler,"sqlProvider","configurations");
         
     }
+    
     let CommandHandler=():void=>{
         bottleContainer.service("createBookCommandHandler",CreateBookCommandHandler,"mediatR");
         bottleContainer.service("updateBookCommandHandler",UpdateBookCommandHandler,"mediatR");

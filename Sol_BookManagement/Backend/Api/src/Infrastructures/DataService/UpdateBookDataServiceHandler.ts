@@ -40,16 +40,11 @@ export class UpdateBookDataServiceHandler extends BookDataServiceAbstract implem
     public async HandleAsync(requestPara: UpdateBookDataService): Promise<boolean> {
        try
        {
-            console.log(await this.SqlConnectionConfigAsync(this.configuration));
-
-            return true;
+            return this.CommandExecuteAsync(this.sqlProvider,this.configuration,"Update-Book","uspSetBooks",requestPara);
        }
        catch(ex)
        {
            throw ex;
-       }
-       finally{
-
        }
     }
 

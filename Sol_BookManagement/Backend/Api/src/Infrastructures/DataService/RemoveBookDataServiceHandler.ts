@@ -27,9 +27,8 @@ export class RemoveBookDataServiceHandler extends BookDataServiceAbstract implem
     public async HandleAsync(requestPara: RemoveBookDataService): Promise<boolean> {
        try
        {
-            console.log(await this.SqlConnectionConfigAsync(this.configuration));
-
-            return true;
+            console.log(requestPara.BookIdentity);
+            return this.CommandExecuteAsync(this.sqlProvider,this.configuration,"Remove-Book","uspSetBooks",requestPara);
        }
        catch(ex)
        {

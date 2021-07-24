@@ -1,4 +1,5 @@
 import mssql from "mssql/msnodesqlv8";
+import { ISqlProvider } from "../../../Frameworks/SqlProvider/Core/SqlProviders";
 import { IConfiguration } from "../../Config/Settings/Core/Configuration";
 import BookModel from "../../Models/BookModel";
 
@@ -55,6 +56,28 @@ export default abstract class BookDataServiceAbstract{
             }
 
         });
+    }
+
+    protected async CommandExecuteAsync(sqlProvider:ISqlProvider, configuration:IConfiguration, command:string,procedureName:string,bookModel:BookModel):Promise<boolean>{
+        try
+        {
+            let pool:mssql.ConnectionPool=await sqlProvider.OpenSqlConnectionAsync(await this.SqlConnectionConfigAsync(configuration));
+
+            let request:mssql.Request=await this.SetParameterAsync(pool.request(),command,bookModel);
+
+            let queryResult=await request.execute(procedureName);
+
+            let flag=(queryResult.rowsAffected[0]>=1) ? true :false;
+
+            return true;
+        }
+        catch(ex){
+            throw ex;
+        }
+        finally
+        {
+            await sqlProvider.CloseSqlConnectionAsync();
+        }
     }
     
 }

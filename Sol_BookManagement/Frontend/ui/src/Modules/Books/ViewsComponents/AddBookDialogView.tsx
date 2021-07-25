@@ -2,6 +2,7 @@ import React from "react";
 import { Dialog } from 'primereact/dialog';
 import {Button} from "primereact/button";
 import { AddDialogViewModel } from "../ViewModels/AddBookDialogViewModel";
+import AddBookView from "./AddBookView";
 
 export default class AddBookDialogView extends AddDialogViewModel{
     // private footer = (
@@ -21,7 +22,7 @@ export default class AddBookDialogView extends AddDialogViewModel{
                     modal 
                     onHide={()=> this.setState({IsDisplayModel:false})}>
 
-                    <h1>Dialog</h1>
+                    <AddBookView></AddBookView>
 
                 </Dialog>
             </React.Fragment>

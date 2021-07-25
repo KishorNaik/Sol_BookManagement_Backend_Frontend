@@ -7,6 +7,7 @@ import { Calendar } from 'primereact/calendar';
 import {Button} from "primereact/button";
 import { AddBookViewModel } from "../ViewModels/AddBookViewModel";
 import { ErrorDisplay } from "./SubComponents/Shared/ErrorDisplay";
+import { string } from "yup/lib/locale";
 
 export default class AddBookView extends AddBookViewModel{
 
@@ -20,11 +21,46 @@ export default class AddBookView extends AddBookViewModel{
                             Auther:'',
                             Quantity:undefined,
                             Price:0.00,
-                            PublishDate:new Date()
+                            PublishDate:undefined
                         }
                     }
-                    onSubmit={(values)=>{
+                    validationSchema={
+                        Yup.object({
+                            BookName:Yup.string()
+                                        .required("Book Name is required")
+                                        .min(2)
+                                        .max(50),
+                            Auther:Yup.string()
+                                        .required("Auther name is required")
+                                        .min(2)
+                                        .max(50),
+                            Quantity:Yup.number()
+                                        .required()
+                                        .positive()
+                                        .integer(),
+                            Price:Yup.number()
+                                .positive()
+                                .integer(),
+                            PublishDate:Yup.date()
+                                        .required()
+                                        .test("is-future-date","Publish date should not be future date",(value)=>{
+                                                
+                                                let publishDate:Date|undefined=value;
+                                                let nowDate:Date=new Date();
 
+                                                if(publishDate?.getDate()!<=nowDate.getDate()){
+                                                    return true;
+                                                }
+                                                return false;
+                                        })
+                        })
+                    }
+                    onSubmit={(values)=>{
+                        alert(new Date(values.PublishDate!).getMonth()+1);
+                        alert(new Date(values.PublishDate!).getDate());
+                        alert(new Date(values.PublishDate!).getFullYear());
+                        //alert(new Date((values.PublishDate!)).toJSON().slice(0,10).replace(/-/g,'/'));
+                        //alert(JSON.stringify(values));
                     }}
                 >
                     {
@@ -36,7 +72,7 @@ export default class AddBookView extends AddBookViewModel{
                                             <div className="p-fluid">
                                                 <div className="p-field">
                                                     <span className="p-float-label">
-                                                        <InputText id="txtBookName" value={formik.values.BookName} onChange={formik.handleChange} />
+                                                        <InputText id="txtBookName" name="BookName" value={formik.values.BookName} onChange={formik.handleChange} />
                                                         <label htmlFor="txtBookName">BookName</label>
                                                     </span>
                                                     {formik.errors.BookName ? <ErrorDisplay Message={formik.errors.BookName}></ErrorDisplay> : null}
@@ -50,7 +86,7 @@ export default class AddBookView extends AddBookViewModel{
                                             <div className="p-fluid">
                                                 <div className="p-field">
                                                     <span className="p-float-label">
-                                                        <InputText id="txtAuther" value={formik.values.Auther} onChange={formik.handleChange} />
+                                                        <InputText id="txtAuther" name="Auther" value={formik.values.Auther} onChange={formik.handleChange} />
                                                         <label htmlFor="txtAuther">Auther</label>
                                                     </span>
                                                     {formik.errors.Auther ? <ErrorDisplay Message={formik.errors.Auther}></ErrorDisplay> : null}
@@ -64,10 +100,10 @@ export default class AddBookView extends AddBookViewModel{
                                             <div className="p-fluid">
                                                 <div className="p-field">
                                                     <span className="p-float-label">
-                                                        <InputNumber id="txtQuantity" value={formik.values.Quantity} onValueChange={formik.handleChange} mode="decimal" useGrouping={false} />
+                                                        <InputNumber id="txtQuantity" name="Quantity" value={formik.values.Quantity} onValueChange={formik.handleChange} mode="decimal" useGrouping={false} />
                                                         <label htmlFor="txtQuantity">Quantity</label>
                                                     </span>
-                                                    {formik.errors.Auther ? <ErrorDisplay Message={formik.errors.Auther}></ErrorDisplay> : null}
+                                                    {formik.errors.Quantity ? <ErrorDisplay Message={formik.errors.Quantity}></ErrorDisplay> : null}
                                                 </div>
 
                                             </div>
@@ -79,10 +115,10 @@ export default class AddBookView extends AddBookViewModel{
                                                 <div className="p-field">
                                                     {/* <span className="p-float-label"> */}
                                                         
-                                                        <InputNumber id="txtPrice" value={formik.values.Price} onValueChange={formik.handleChange} mode="currency" currency="INR" currencyDisplay="code" locale="en-IN" />
+                                                        <InputNumber id="txtPrice" name="Price" value={formik.values.Price} onValueChange={formik.handleChange} mode="currency" currency="INR" currencyDisplay="code" locale="en-IN" />
                                                         
                                                     {/* </span> */}
-                                                    {formik.errors.Auther ? <ErrorDisplay Message={formik.errors.Auther}></ErrorDisplay> : null}
+                                                    {formik.errors.Price ? <ErrorDisplay Message={formik.errors.Price}></ErrorDisplay> : null}
                                                 </div>
 
                                             </div>
@@ -93,10 +129,10 @@ export default class AddBookView extends AddBookViewModel{
                                             <div className="p-fluid">
                                                 <div className="p-field">
                                                     <span className="p-float-label">
-                                                    <Calendar id="navigators" value={formik.values.PublishDate} onChange={formik.handleChange} monthNavigator yearNavigator yearRange="2010:2030"/>
+                                                    <Calendar id="navigators" name="PublishDate" dateFormat="mm/dd/yy" value={formik.values.PublishDate} viewDate={formik.values.PublishDate} onChange={formik.handleChange} monthNavigator yearNavigator yearRange="2010:2030"/>
                                                         <label htmlFor="txtPublishDate">Publish Date</label>
                                                     </span>
-                                                    {formik.errors.Auther ? <ErrorDisplay Message={formik.errors.Auther}></ErrorDisplay> : null}
+                                                    {formik.errors.PublishDate ? <ErrorDisplay Message={formik.errors.PublishDate}></ErrorDisplay> : null}
                                                 </div>
                                             </div>
                                         </div>

@@ -1,0 +1,17 @@
+
+/* Custom */
+.bmp-topbar{
+    background-color:var(--surface-100);
+  }
+
+span.bmp-title{
+  padding-left: 10px;
+}
+
+.bmp-content-bar{
+  background-color:var(--surface-100);
+}
+
+.bmp-dialog-width{
+  width: 90vw;
+}

@@ -7,7 +7,6 @@ import { Calendar } from 'primereact/calendar';
 import {Button} from "primereact/button";
 import { AddBookViewModel } from "../ViewModels/AddBookViewModel";
 import { ErrorDisplay } from "./SubComponents/Shared/ErrorDisplay";
-import { string } from "yup/lib/locale";
 
 export default class AddBookView extends AddBookViewModel{
 
@@ -25,6 +24,7 @@ export default class AddBookView extends AddBookViewModel{
                         }
                     }
                     validationSchema={
+
                         Yup.object({
                             BookName:Yup.string()
                                         .required("Book Name is required")
@@ -65,7 +65,7 @@ export default class AddBookView extends AddBookViewModel{
                 >
                     {
                         (formik)=>(
-                            <form onSubmit={formik.handleSubmit}>
+                            <form  onSubmit={formik.handleSubmit}>
                                 <div className="container mt-3">
                                     <div className="row">
                                         <div className="col-12">

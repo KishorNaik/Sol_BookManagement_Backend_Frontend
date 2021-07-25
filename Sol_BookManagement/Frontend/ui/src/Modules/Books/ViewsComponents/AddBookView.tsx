@@ -105,7 +105,7 @@ export default class AddBookView extends AddBookViewModel{
                                         <div className="col-sm-12 col-md-12">
                                             <div className="p-fluid">
                                                 <div className="p-field">
-                                                    <Button label="Submit" className="p-button-rounded p-button-warning btn-block" />
+                                                    <Button label="Submit" className="p-button-rounded p-button-warning" />
                                                 </div>
                                             </div>   
                                         </div>

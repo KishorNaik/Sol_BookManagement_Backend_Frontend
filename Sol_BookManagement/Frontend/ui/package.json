@@ -10,6 +10,7 @@
     "@types/node": "^12.20.16",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
+    "axios": "^0.21.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -47,6 +48,9 @@
     "primeicons": "^4.1.0",
     "primereact": "^6.5.0",
     "react-transition-group": "^4.4.2",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "linq": "^3.2.3",
+    "pubsub-js": "^1.9.3",
+    "@types/pubsub-js": "^1.8.2"
   }
 }

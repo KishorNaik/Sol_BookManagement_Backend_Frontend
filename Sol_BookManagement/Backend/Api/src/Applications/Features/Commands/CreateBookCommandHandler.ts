@@ -9,14 +9,14 @@ export class CreateBookCommand implements IRequest<boolean>{
     public Auther:string;
     public Quantity:number;
     public Price:number;
-    public PublishDate:Date
+    public PublishDate:Date|string
 
     constructor(
         bookName:string,
         auther:string,
         quantity:number,
         price:number,
-        publishDate:Date
+        publishDate:Date|string
     ){
         this.BookName=bookName;
         this.Auther=auther;
@@ -37,6 +37,7 @@ export class CreateBookCommandHandler implements IRequestHandler<CreateBookComma
     public HandleAsync(requestPara: CreateBookCommand): Promise<boolean> {
        try
        {
+            //console.log(requestPara.PublishDate);
             return this.mediatR.SendAsync<boolean,CreateBookCommand>(new CreateBookDataService(
                 requestPara.BookName,
                 requestPara.Auther,

@@ -5,14 +5,18 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { Calendar } from 'primereact/calendar';
 import {Button} from "primereact/button";
+import { Toast } from 'primereact/toast';
 import { AddBookViewModel } from "../ViewModels/AddBookViewModel";
 import { ErrorDisplay } from "./SubComponents/Shared/ErrorDisplay";
+import BookModel from "../Models/BookModel";
+import { GetMMDDYYYYAsync } from "../../../Utility/Date/GetMMSSYYYY";
 
 export default class AddBookView extends AddBookViewModel{
 
     public render(){
         return (
             <React.Fragment>
+                
                 <Formik
                     initialValues={
                         {
@@ -55,12 +59,26 @@ export default class AddBookView extends AddBookViewModel{
                                         })
                         })
                     }
-                    onSubmit={(values)=>{
-                        alert(new Date(values.PublishDate!).getMonth()+1);
-                        alert(new Date(values.PublishDate!).getDate());
-                        alert(new Date(values.PublishDate!).getFullYear());
+                    onSubmit={async (values)=>{
+                        // alert(new Date(values.PublishDate!).getMonth()+1);
+                        // alert(new Date(values.PublishDate!).getDate());
+                        // alert(new Date(values.PublishDate!).getFullYear());
                         //alert(new Date((values.PublishDate!)).toJSON().slice(0,10).replace(/-/g,'/'));
                         //alert(JSON.stringify(values));
+                    
+
+                        let publishDate=await GetMMDDYYYYAsync(values?.PublishDate!);
+                        console.log(publishDate);
+
+                        let bookModel:BookModel={
+                            BookName:values?.BookName,
+                            Auther:values?.Auther,
+                            Price:values?.Price,
+                            Quantity:values?.Quantity,
+                            PublishDate:publishDate
+                        };
+                        console.log(bookModel);
+                        await this.OnAddBookSubmitButtonHandler(bookModel);
                     }}
                 >
                     {
@@ -141,7 +159,7 @@ export default class AddBookView extends AddBookViewModel{
                                         <div className="col-sm-12 col-md-12">
                                             <div className="p-fluid float-md-end">
                                                 <div className="p-field ">
-                                                    <Button label="Submit" className="p-button-rounded p-button-warning" />
+                                                    <Button label="Submit" type="submit" className="p-button-rounded p-button-warning" />
                                                 </div>
                                             </div>   
                                         </div>
@@ -151,6 +169,13 @@ export default class AddBookView extends AddBookViewModel{
                         )
                     }
                 </Formik>
+                
+               
+                    <Toast ref={this.toastObj} className="bmp-toast-width" 
+                        onHide={this.OnToastHideCloseAddBookDialog} 
+                        ></Toast>
+               
+               
             </React.Fragment>
         )
     }

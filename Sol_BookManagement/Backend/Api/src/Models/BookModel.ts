@@ -4,5 +4,5 @@ export default class BookModel{
     public Auther:string;
     public Price:number;
     public Quantity:number;
-    public PublishDate: Date
+    public PublishDate: Date|string
 }

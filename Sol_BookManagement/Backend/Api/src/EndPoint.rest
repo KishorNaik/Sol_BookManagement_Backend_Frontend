@@ -7,7 +7,7 @@ Content-Type: application/json
     "Auther":"JOHN STEINBECK",
     "Quantity":10,
     "Price":350.00,
-    "PublishDate":"01/01/1952"
+    "PublishDate":"07/01/1952"
 }
 
 ###

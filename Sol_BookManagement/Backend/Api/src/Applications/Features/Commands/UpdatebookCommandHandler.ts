@@ -10,7 +10,7 @@ export class UpdateBookCommand implements IRequest<boolean>{
     public Auther:string;
     public Quantity:number;
     public Price:number;
-    public PublishDate:Date;
+    public PublishDate:Date|string;
 
     constructor(
         bookIdentity:string,
@@ -18,7 +18,7 @@ export class UpdateBookCommand implements IRequest<boolean>{
         auther:string,
         quantity:number,
         price:number,
-        publishDate:Date
+        publishDate:Date|string
     ){
         this.BookIdentity=bookIdentity;
         this.BookName=bookName;

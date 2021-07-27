@@ -12,6 +12,7 @@ export default class MainPage extends MainPageViewModel{
         return (
             <React.Fragment> 
                <div className="container">
+                  
                    <Header OnOpenAddBookDialog={this.OnOpenAddBookDialog}></Header>
                    <Content>
                        <h1>Test</h1>

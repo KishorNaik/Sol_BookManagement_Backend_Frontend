@@ -13,7 +13,7 @@ export class CreateBookDataService extends BookModel implements IRequest<boolean
         auther:string,
         quantity:number,
         price:number,
-        publishDate:Date
+        publishDate:Date|string
     ){
         super();
         this.BookName=bookName;
@@ -41,6 +41,7 @@ export class CreateBookDataServiceHandler extends BookDataServiceAbstract implem
         
        try
        {
+           
            return this.CommandExecuteAsync(this.sqlProvider,this.configuration,"Create-Book","uspSetBooks",requestPara);
        }
        catch(ex)

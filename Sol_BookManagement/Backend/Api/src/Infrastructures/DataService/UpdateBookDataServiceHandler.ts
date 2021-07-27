@@ -13,7 +13,7 @@ export class UpdateBookDataService extends BookModel implements IRequest<boolean
         auther:string,
         quantity:number,
         price:number,
-        publishDate:Date
+        publishDate:Date|string
     ){
         super();
         this.BookIdentity=bookIdentity;

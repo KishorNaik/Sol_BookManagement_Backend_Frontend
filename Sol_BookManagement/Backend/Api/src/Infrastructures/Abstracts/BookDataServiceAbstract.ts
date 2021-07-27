@@ -38,6 +38,7 @@ export default abstract class BookDataServiceAbstract{
 
             try
             {
+               
                 requestPara
                     .input("Command",mssql.VarChar,command)
                     .input("BookIdentity",mssql.UniqueIdentifier,bookModel.BookIdentity)
@@ -45,7 +46,7 @@ export default abstract class BookDataServiceAbstract{
                     .input("Auther",mssql.VarChar,bookModel.Auther)
                     .input("Price",mssql.Money,bookModel.Price)
                     .input("Quantity",mssql.Int,bookModel.Quantity)
-                    .input("PublishDate",mssql.Date,bookModel.PublishDate);
+                    .input("PublishDate",mssql.VarChar,bookModel.PublishDate);
 
                 resolve(requestPara);
 

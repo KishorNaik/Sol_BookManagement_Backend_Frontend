@@ -1,8 +1,8 @@
 import React from "react";
 import { Dialog } from 'primereact/dialog';
 import {Button} from "primereact/button";
-import { AddDialogViewModel } from "../ViewModels/AddBookDialogViewModel";
-import AddBookView from "./AddBookView";
+import { AddDialogViewModel } from "../../ViewModels/Dialogs/AddBookDialogViewModel";
+import AddBookView from "../AddBookView";
 
 export default class AddBookDialogView extends AddDialogViewModel{
     // private footer = (

@@ -11,8 +11,8 @@ export default class BookCardView extends BookCardViewModel{
         return (
             <React.Fragment>
                <span>
-                    <Button label="Edit" icon="pi pi-save" />
-                    <Button label="Delete" icon="pi pi-times" className="p-button-secondary p-ml-2" />
+                    <Button label="Edit" icon="pi pi-save" onClick={()=> this.OnOpenEditBookDialogHandler(this.props.bookModel)} />
+                    <Button label="Delete" icon="pi pi-times" className="p-button-secondary p-ml-2" onClick={()=> this.OnOpenDeleteBookDialogHandler(this.props.bookModel)} />
                 </span>
             </React.Fragment>
         )

@@ -1,7 +1,7 @@
 import React from "react"
 
 interface IErrorDisplayPros{
-    Message:string
+    Message:any
 }
 
 export const ErrorDisplay=(props:IErrorDisplayPros):JSX.Element=>{

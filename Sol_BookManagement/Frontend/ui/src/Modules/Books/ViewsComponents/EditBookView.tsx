@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
+import EditBookViewModel from "../ViewModels/EditBookViewModel";
 import { Formik, Form,Field } from "formik";
 import * as Yup from 'yup';
 import { InputText } from 'primereact/inputtext';
@@ -6,25 +7,23 @@ import { InputNumber } from 'primereact/inputnumber';
 import { Calendar } from 'primereact/calendar';
 import {Button} from "primereact/button";
 import { Toast } from 'primereact/toast';
-import { AddBookViewModel } from "../ViewModels/AddBookViewModel";
 import { ErrorDisplay } from "./SubComponents/Shared/ErrorDisplay";
-import BookModel from "../Models/BookModel";
 import { GetMMDDYYYYAsync } from "../../../Utility/Date/GetMMSSYYYY";
+import BookModel from "../Models/BookModel";
 
-export default class AddBookView extends AddBookViewModel{
+export default class EditBookView extends EditBookViewModel{
 
     public render(){
         return (
             <React.Fragment>
-                
                 <Formik
                     initialValues={
                         {
-                            BookName:'',
-                            Auther:'',
-                            Quantity:undefined,
-                            Price:0.00,
-                            PublishDate:undefined
+                            BookName:this.props.Book?.BookName,
+                            Auther:this.props?.Book?.Auther,
+                            Quantity:this.props?.Book?.Quantity,
+                            Price:this.props?.Book?.Price,
+                            PublishDate:new Date(this.props?.Book?.PublishDate!)
                         }
                     }
                     validationSchema={
@@ -60,13 +59,7 @@ export default class AddBookView extends AddBookViewModel{
                         })
                     }
                     onSubmit={async (values)=>{
-                        // alert(new Date(values.PublishDate!).getMonth()+1);
-                        // alert(new Date(values.PublishDate!).getDate());
-                        // alert(new Date(values.PublishDate!).getFullYear());
-                        //alert(new Date((values.PublishDate!)).toJSON().slice(0,10).replace(/-/g,'/'));
-                        //alert(JSON.stringify(values));
-                    
-
+                     
                         let publishDate=await GetMMDDYYYYAsync(values?.PublishDate!);
                         console.log(publishDate);
 
@@ -78,7 +71,7 @@ export default class AddBookView extends AddBookViewModel{
                             PublishDate:publishDate
                         };
                         console.log(bookModel);
-                        await this.OnAddBookSubmitButtonHandler(bookModel);
+                        await this.OnEditBookSubmitButtonHandler(bookModel);
                     }}
                 >
                     {
@@ -147,7 +140,7 @@ export default class AddBookView extends AddBookViewModel{
                                             <div className="p-fluid">
                                                 <div className="p-field">
                                                     <span className="p-float-label">
-                                                    <Calendar id="navigators" name="PublishDate" dateFormat="mm/dd/yy" value={formik.values.PublishDate} viewDate={formik.values.PublishDate} onChange={formik.handleChange} monthNavigator yearNavigator yearRange="2010:2030"/>
+                                                        <Calendar name="PublishDate" dateFormat="mm/dd/yy" value={formik.values.PublishDate} onChange={formik.handleChange} monthNavigator yearNavigator yearRange="2010:2030"/>
                                                         <label htmlFor="txtPublishDate">Publish Date</label>
                                                     </span>
                                                     {formik.errors.PublishDate ? <ErrorDisplay Message={formik.errors.PublishDate}></ErrorDisplay> : null}
@@ -172,10 +165,8 @@ export default class AddBookView extends AddBookViewModel{
                 
                
                     <Toast ref={this.toastObj} className="bmp-toast-width" 
-                        onHide={this.OnToastHideCloseAddBookDialogHandler} 
+                        onHide={this.OnToastHideCloseEditBookDialogHandler} 
                         ></Toast>
-               
-               
             </React.Fragment>
         )
     }

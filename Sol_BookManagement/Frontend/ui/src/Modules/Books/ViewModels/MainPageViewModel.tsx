@@ -4,13 +4,15 @@ import DeleteBookDialogView from "../ViewsComponents/Dialogs/DeleteBookDialogVie
 import PubSub from "pubsub-js";
 import BookModel from "../Models/BookModel";
 import EditBookDialogView from "../ViewsComponents/Dialogs/EditBookDialogView";
+import { GetBookApiServiceAsync } from "../Services/GetBookApiService";
 
 interface IMainPageViewModelProps{
 
 }
 
 interface IMainPageViewModelState{
-    SelectedBook:BookModel|undefined;
+    SelectedBook?:BookModel|undefined;
+    BookList?:BookModel[]|null;
 }
 
 export abstract class MainPageViewModel extends Component<IMainPageViewModelProps,IMainPageViewModelState>{
@@ -23,7 +25,8 @@ export abstract class MainPageViewModel extends Component<IMainPageViewModelProp
         super(props);
 
         this.state={
-            SelectedBook:{}
+            SelectedBook:{},
+            BookList:[]
         }
 
         this.addBookDialogComponentsRef=React.createRef<AddBookDialogView>();
@@ -57,9 +60,17 @@ export abstract class MainPageViewModel extends Component<IMainPageViewModelProp
         })
     }
 
+    private GetListOfBooks=async ():Promise<void>=>{
+        let bookList:BookModel[]|null=await GetBookApiServiceAsync();
+        this.setState({
+            BookList:bookList
+        });
+    }
+
     public componentWillMount(){
         this.OnDeleteBookOpenSubscribe();
         this.OnEditBookOpenSubscriber();
+        this.GetListOfBooks();
     }
 
 

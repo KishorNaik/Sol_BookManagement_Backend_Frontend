@@ -6,9 +6,11 @@ import { ValidationDelegateHandlerAsync } from "../../Frameworks/ValidationDeleg
 import { CreateBookCommand } from "../Applications/Features/Commands/CreateBookCommandHandler";
 import { RemoveBookCommand } from "../Applications/Features/Commands/RemoveBookCommandHandler";
 import { UpdateBookCommand } from "../Applications/Features/Commands/UpdatebookCommandHandler";
+import { GetBookQuery } from "../Applications/Features/Queries/GetBookQueryHandler";
 import { CreateBookValidation } from "../Business/Validations/CreateBookValidationHandler";
 import { RemoveBookValidation } from "../Business/Validations/RemoveBookValidationHandler";
 import { UpdateBookValidation } from "../Business/Validations/UpdateBookValidationHandler";
+import BookModel from "../Models/BookModel";
 
 export default class BookController extends BaseController{
 
@@ -46,6 +48,13 @@ export default class BookController extends BaseController{
                             await this.mediatR.SendAsync<ValidationChain[],RemoveBookValidation>(new RemoveBookValidation()),
                             this.RemoveBookAsync.bind(this)
                         );
+
+        //http://localhost:3001/api/book/getbooks
+        this.router.post(
+                            `${this.routePath}/getbooks`,
+                            this.GetBookListAsync.bind(this)
+                        );
+
     }
 
     private async CreateBookAsync(request:express.Request,response:express.Response,next:express.NextFunction): Promise <void>{
@@ -107,6 +116,19 @@ export default class BookController extends BaseController{
 
                 return flag;
             });
+        }
+        catch(ex)
+        {
+            next(ex);
+        }
+    }
+
+    private async GetBookListAsync(request:express.Request,response:express.Response,next:express.NextFunction): Promise<void>
+    {
+        try
+        {
+            let bookList:BookModel[]=await this.mediatR.SendAsync<BookModel[],GetBookQuery>(new GetBookQuery());
+            response.status(200).json(bookList);
         }
         catch(ex)
         {

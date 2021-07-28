@@ -59,6 +59,25 @@ export default abstract class BookDataServiceAbstract{
         });
     }
 
+    protected GetParameterAsync(requestPara:mssql.Request,command:string, bookModel:BookModel):Promise<mssql.Request>{
+       return new Promise((resolve,reject)=>{
+
+            try
+            {
+                requestPara
+                    .input("Command",mssql.VarChar,command);
+
+                resolve(requestPara);
+            }
+            catch(ex)
+            {
+                reject(ex);
+                throw ex;
+            }
+
+       });
+    }
+
     protected async CommandExecuteAsync(sqlProvider:ISqlProvider, configuration:IConfiguration, command:string,procedureName:string,bookModel:BookModel):Promise<boolean>{
         try
         {
@@ -70,9 +89,31 @@ export default abstract class BookDataServiceAbstract{
 
             let flag=(queryResult.rowsAffected[0]>=1) ? true :false;
 
-            return true;
+            return flag;
         }
         catch(ex){
+            throw ex;
+        }
+        finally
+        {
+            await sqlProvider.CloseSqlConnectionAsync();
+        }
+    }
+
+    protected async QueryExecuteAsync(sqlProvider:ISqlProvider,configuration:IConfiguration,command:string,procedureName:string,bookModel?:BookModel):Promise<mssql.IProcedureResult<any>>{
+        try
+        {
+            let pool:mssql.ConnectionPool=await sqlProvider.OpenSqlConnectionAsync(await this.SqlConnectionConfigAsync(configuration));
+
+            let request:mssql.Request=await this.GetParameterAsync(pool.request(),command,bookModel!);
+
+            let queryResult=await request.execute(procedureName);
+
+            return queryResult;
+
+        }
+        catch(ex)
+        {
             throw ex;
         }
         finally

@@ -3,11 +3,13 @@ import { IMediatRRegister } from "../../../../Frameworks/MediatR/Core/MediatR";
 import { CreateBookCommand, CreateBookCommandHandler } from "../../../Applications/Features/Commands/CreateBookCommandHandler";
 import { RemoveBookCommand, RemoveBookCommandHandler } from "../../../Applications/Features/Commands/RemoveBookCommandHandler";
 import { UpdateBookCommand, UpdateBookCommandHandler } from "../../../Applications/Features/Commands/UpdatebookCommandHandler";
+import { GetBookQuery, GetBookQueryHandler } from "../../../Applications/Features/Queries/GetBookQueryHandler";
 import { CreateBookValidation, CreateBookValidationHandler } from "../../../Business/Validations/CreateBookValidationHandler";
 import { RemoveBookValidation, RemoveBookValidationHandler } from "../../../Business/Validations/RemoveBookValidationHandler";
 import { UpdateBookValidation, UpdateBookValidationHandler } from "../../../Business/Validations/UpdateBookValidationHandler";
 import BookController from "../../../Controllers/BookController";
 import { CreateBookDataService, CreateBookDataServiceHandler } from "../../../Infrastructures/DataService/CreateBookDataServiceHandler"
+import { GetBookDataService, GetBookDataServiceHandler } from "../../../Infrastructures/DataService/GetBookDataServiceHandler";
 import { RemoveBookDataService, RemoveBookDataServiceHandler } from "../../../Infrastructures/DataService/RemoveBookDataServiceHandler";
 import { UpdateBookDataService, UpdateBookDataServiceHandler } from "../../../Infrastructures/DataService/UpdateBookDataServiceHandler";
 
@@ -17,6 +19,7 @@ export const AddBookServiceExtension=(bottleContainer:Bottle):void=>{
         bottleContainer.service("createBookDataServiceHandler",CreateBookDataServiceHandler,"sqlProvider","configurations");
         bottleContainer.service("updateBookDataServiceHandler",UpdateBookDataServiceHandler,"sqlProvider","configurations");
         bottleContainer.service("removeBookDataServiceHandler",RemoveBookDataServiceHandler,"sqlProvider","configurations");
+        bottleContainer.service("getBookServiceHandler",GetBookDataServiceHandler,"sqlProvider","configurations");
         
     }
     
@@ -25,6 +28,11 @@ export const AddBookServiceExtension=(bottleContainer:Bottle):void=>{
         bottleContainer.service("updateBookCommandHandler",UpdateBookCommandHandler,"mediatR");
         bottleContainer.service("removeBookCommandHandler",RemoveBookCommandHandler,"mediatR");
     }
+
+    let QueryHandler=():void=>{
+        bottleContainer.service("getBookQueryHandler",GetBookQueryHandler,"mediatR");
+    }
+
     let ValidationHandler=():void=>{
         bottleContainer.service("createBookValidationHandler",CreateBookValidationHandler);
         bottleContainer.service("updateBookValidationHandler",UpdateBookValidationHandler);
@@ -51,11 +59,16 @@ export const AddBookServiceExtension=(bottleContainer:Bottle):void=>{
         mediatR.RegisterRequest(RemoveBookCommand,bottleContainer.container.removeBookCommandHandler);
         mediatR.RegisterRequest(RemoveBookValidation,bottleContainer.container.removeBookValidationHandler);
 
+        // Get Book
+        mediatR.RegisterRequest(GetBookDataService,bottleContainer.container.getBookServiceHandler);
+        mediatR.RegisterRequest(GetBookQuery,bottleContainer.container.getBookQueryHandler);
+
     }
 
 
     DataServiceHandler();
     CommandHandler();
+    QueryHandler();
     ValidationHandler();
     MediatRRegistration();
     Controller();

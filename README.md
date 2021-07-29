@@ -7,4 +7,3 @@ I always use the above-said architecture pattern in my client projects. This ar
 
 I hope you like it.
 
-Note: Still mini-project is under construction.

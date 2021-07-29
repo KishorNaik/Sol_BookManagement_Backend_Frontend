@@ -1,6 +1,7 @@
 import React from "react";
 import { Dialog } from 'primereact/dialog';
 import DeleteBookDialogViewModel from "../../ViewModels/Dialogs/DeleteBookDialogViewModel";
+import DeleteBookView from "../DeleteBookView";
 
 export default class DeleteBookDialogView extends DeleteBookDialogViewModel{
 
@@ -13,8 +14,7 @@ export default class DeleteBookDialogView extends DeleteBookDialogViewModel{
                     modal 
                     onHide={()=> this.setState({IsDisplayModal:false})}>
 
-                    <h1>Delete Model</h1>
-                    <h3>{this.props.SelectedBook?.BookIdentity}</h3>
+                        <DeleteBookView Book={this.props.SelectedBook!}></DeleteBookView>
 
                 </Dialog>
             </React.Fragment>

@@ -20,6 +20,10 @@ span.bmp-title{
   width: 25vw;
 }
 
+/* .bmp-yes-no-button-width{
+  width: 200px !important;
+} */
+
 @media only screen and (max-width: 576px) {
   .bmp-toast-width{
     width: 70vw;

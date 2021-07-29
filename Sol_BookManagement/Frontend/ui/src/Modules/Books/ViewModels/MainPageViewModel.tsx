@@ -67,10 +67,17 @@ export abstract class MainPageViewModel extends Component<IMainPageViewModelProp
         });
     }
 
+    private RefreshListOfBooksSubscriber=():void=>{
+        PubSub.subscribe("RefreshBookOfList",async ()=>{
+            await this.GetListOfBooks();
+        });
+    }
+
     public componentWillMount(){
         this.OnDeleteBookOpenSubscribe();
         this.OnEditBookOpenSubscriber();
         this.GetListOfBooks();
+        this.RefreshListOfBooksSubscriber();
     }
 
 

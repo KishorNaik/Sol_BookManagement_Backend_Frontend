@@ -9,17 +9,41 @@ import BookListView from "./BooKList/BookListView";
 import BookModel from "../Models/BookModel";
 import DeleteBookDialogView from "./Dialogs/DeleteBookDialogViewModel";
 import EditBookDialogView from "./Dialogs/EditBookDialogView";
+import { NoRecordFound } from "./SubComponents/Shared/NoRecordFound";
 
 export default class MainPage extends MainPageViewModel{
     
+  
+
+    private RenderBookList=():JSX.Element=>{
+        let template:JSX.Element;
+
+        if(this?.state?.BookList!=null && (this.state.BookList! as BookModel[])?.length>=1){
+            
+            template=<BookListView BookList={this.state.BookList!}></BookListView>
+        }
+        else
+        {
+            template=<NoRecordFound></NoRecordFound>
+            
+        }
+
+        return template;
+    }
+
     public render(){
+
         return (
             <React.Fragment> 
                <div className="container">
                   
                    <Header OnOpenAddBookDialog={this.OnOpenAddBookDialog}></Header>
                    <Content>
-                       <BookListView BookList={this.state.BookList!}></BookListView>
+                      
+                        <this.RenderBookList></this.RenderBookList>
+                        {/* or Call like this
+                        {this.RenderBookList()}
+                        */}
                    </Content>
                </div>
 

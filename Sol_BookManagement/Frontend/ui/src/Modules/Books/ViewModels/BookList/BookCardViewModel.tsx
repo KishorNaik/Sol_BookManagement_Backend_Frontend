@@ -13,14 +13,14 @@ export default abstract class BookCardViewModel extends Component<IBookCardViewM
     }
 
     protected OnOpenDeleteBookDialogHandler=(bookModel:BookModel | undefined):void=>{
-      console.log("Delete:",bookModel);
+      //console.log("Delete:",bookModel);
 
       PubSub.publish("OnDeleteBookOpenDialog",bookModel);
 
     }
 
     protected OnOpenEditBookDialogHandler=(bookModel:BookModel | undefined): void=>{
-        console.log("Edit:",bookModel);
+        //console.log("Edit:",bookModel);
 
         PubSub.publish("OnEditBookOpenDialog",bookModel);
     }

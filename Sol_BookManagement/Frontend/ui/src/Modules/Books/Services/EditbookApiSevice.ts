@@ -3,7 +3,7 @@ import axios from "axios"
 
 export const EditBookApiServiceAsync=async (bookModel:BookModel):Promise<object|null>=>{
     let data:object|null=null;
-    let response=await axios.post("http://localhost:3001/api/book/editbook",bookModel,{
+    let response=await axios.post("http://localhost:3001/api/book/updatebook",bookModel,{
        headers:{"Content-Type":"application/json"}
     });
 

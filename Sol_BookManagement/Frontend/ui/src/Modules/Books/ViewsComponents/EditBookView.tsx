@@ -64,13 +64,14 @@ export default class EditBookView extends EditBookViewModel{
                         console.log(publishDate);
 
                         let bookModel:BookModel={
+                            BookIdentity:this.props?.Book?.BookIdentity,
                             BookName:values?.BookName,
                             Auther:values?.Auther,
                             Price:values?.Price,
                             Quantity:values?.Quantity,
                             PublishDate:publishDate
                         };
-                        console.log(bookModel);
+                        //console.log(bookModel);
                         await this.OnEditBookSubmitButtonHandler(bookModel);
                     }}
                 >

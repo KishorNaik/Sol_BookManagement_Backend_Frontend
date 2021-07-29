@@ -37,6 +37,7 @@ export abstract class AddBookViewModel extends Component<IAddBookViewModelPros,{
     }
 
     protected OnToastHideCloseAddBookDialogHandler=():void=>{
+        PubSub.publish("RefreshBookOfList");
         PubSub.publish("HideAddBookDialog");
     }
 }

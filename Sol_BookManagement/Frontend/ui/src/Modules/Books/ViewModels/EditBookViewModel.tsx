@@ -24,9 +24,10 @@ export default abstract class EditBookViewModel extends Component<IEditBookViewM
 
     protected OnEditBookSubmitButtonHandler=async (bookModel:BookModel):Promise<void>=>{
 
+        //console.log(bookModel);
         let data=await EditBookApiServiceAsync(bookModel);
 
-        console.log(data);
+        //console.log(data);
 
         if(data!=null){
           
@@ -39,6 +40,7 @@ export default abstract class EditBookViewModel extends Component<IEditBookViewM
     }
 
     protected OnToastHideCloseEditBookDialogHandler=():void=>{
+        PubSub.publish("RefreshBookOfList");
         PubSub.publish("HideEditBookDialog");
     }
 }

@@ -5,8 +5,9 @@ import BookCardView from "./BookCardView";
 
 export default class BookListView extends BookListViewModel{
 
+    
     public render(){
-        console.log(this.props.BookList);
+        
         return (
             
             <React.Fragment>

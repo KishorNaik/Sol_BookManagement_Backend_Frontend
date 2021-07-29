@@ -24,7 +24,7 @@ export default class BookCardView extends BookCardViewModel{
 
         return (
             <React.Fragment>
-                <div className="col-lg-4 col-xl-4 col-md-6 col-sm-4">
+                <div className="col-lg-4 col-xl-4 col-md-6 col-sm-4 mb-4">
                     <div className="p-shadow-22 text-center">
                         <Card footer={this.Footer} title={this.props.bookModel?.BookName} subTitle={subTitleTemplate}>
                             <React.Fragment>
